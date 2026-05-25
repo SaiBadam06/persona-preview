@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PersonaOn — Engineering Plans</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-app: #FAF9F5;
+      --bg-canvas: #FFFFFF;
+      --ink: #1F1E1B;
+      --ink-2: rgba(31, 30, 27, 0.68);
+      --ink-3: rgba(31, 30, 27, 0.46);
+      --hairline: rgba(31, 30, 27, 0.08);
+      --hairline-2: rgba(31, 30, 27, 0.14);
+      --accent: #C96442;
+      --accent-soft: rgba(201, 100, 66, 0.10);
+      --bg-quiet: rgba(31, 30, 27, 0.025);
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-app);
+      color: var(--ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 96px 32px 120px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      color: var(--ink-3);
+      text-transform: uppercase;
+      margin: 0 0 18px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 1.05;
+      letter-spacing: -0.012em;
+      color: var(--ink);
+      margin: 0 0 20px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .lede {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink-2);
+      margin: 0 0 48px;
+      max-width: 560px;
+    }
+
+    .plan-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 0 0 64px;
+    }
+
+    .plan-card {
+      display: block;
+      padding: 28px 28px 26px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--hairline);
+      border-radius: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 120ms ease, transform 120ms ease;
+    }
+
+    .plan-card:hover {
+      border-color: var(--ink-3);
+      transform: translateY(-1px);
+    }
+
+    .plan-card-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .plan-card-number {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .plan-card-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-3);
+    }
+
+    .plan-card h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 1.15;
+      letter-spacing: -0.004em;
+      color: var(--ink);
+      margin: 0 0 8px;
+    }
+
+    .plan-card p {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--ink-2);
+      margin: 0;
+    }
+
+    .plan-card-arrow {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .footer {
+      padding-top: 32px;
+      border-top: 1px solid var(--hairline);
+      font-size: 13px;
+      color: var(--ink-3);
+    }
+
+    .footer p { margin: 4px 0; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="eyebrow">PersonaOn · engineering plans · v0.78</p>
+    <h1>From mock to <em>shipping.</em></h1>
+    <p class="lede">
+      Two artifacts: how to wire the workspace prototype to a real backend without painting ourselves into a corner for the desktop app, and how to set up the GitHub organisation so six people can ship without stepping on each other.
+    </p>
+
+    <div class="plan-list">
+      <a href="./integration-plan.html" class="plan-card">
+        <div class="plan-card-header">
+          <span class="plan-card-number">PLAN 01</span>
+          <span class="plan-card-meta">~25 min read</span>
+        </div>
+        <h2>Backend ↔ frontend integration plan</h2>
+        <p>
+          Monorepo restructure, gap-finding harness, the single vertical slice to wire end-to-end first, parity wave, GrowthBook rollout, and how the desktop app drops in afterward without a rewrite.
+        </p>
+        <span class="plan-card-arrow">Read the plan →</span>
+      </a>
+
+      <a href="./github-org-plan.html" class="plan-card">
+        <div class="plan-card-header">
+          <span class="plan-card-number">PLAN 02</span>
+          <span class="plan-card-meta">~20 min read</span>
+        </div>
+        <h2>GitHub organisation &amp; team plan</h2>
+        <p>
+          Org structure, five teams for six people, CODEOWNERS that distributes review load off the lead, branch protection, CI/CD workflows, secrets management across three layers, and the seven-day setup sequence.
+        </p>
+        <span class="plan-card-arrow">Read the plan →</span>
+      </a>
+    </div>
+
+    <div class="footer">
+      <p>These plans assume the workspace prototype at <code style="font-family: var(--font-mono); font-size: 12px;">D:\PersonaOn-dashboard-ux-v2</code> on branch <code style="font-family: var(--font-mono); font-size: 12px;">codex/dashboard-ux-v2-from-staging</code> as the starting point.</p>
+      <p>Both are self-contained HTML — open in any browser, share by emailing the file.</p>
+    </div>
+  </div>
+</body>
+</html>
