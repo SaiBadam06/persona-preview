@@ -4,31 +4,31 @@
    ============================================================ */
 
 .workspace-root {
-  /* Warm surfaces */
-  --w-bg-app:      #FAF9F5;
-  --w-bg-canvas:   #FFFFFF;
-  --w-bg-sidebar:  #F3F1EA;
-  --w-bg-hover:    rgba(31, 30, 27, 0.045);
-  --w-bg-active:   rgba(31, 30, 27, 0.075);
-  --w-bg-quiet:    rgba(31, 30, 27, 0.025);
+  /* Brand surfaces — PersonaOn brand kit ("Apple-ish glass, one accent: signal blue") */
+  --w-bg-app:      #f5f5f7;                  /* brand --fog */
+  --w-bg-canvas:   #FFFFFF;                  /* brand --fog-2 */
+  --w-bg-sidebar:  #FAFAFA;                  /* brand --fog-3 */
+  --w-bg-hover:    rgba(29, 29, 31, 0.045);
+  --w-bg-active:   rgba(29, 29, 31, 0.075);
+  --w-bg-quiet:    rgba(29, 29, 31, 0.025);
 
-  /* Ink */
-  --w-ink:         #1F1E1B;
-  --w-ink-2:       rgba(31, 30, 27, 0.68);
-  --w-ink-3:       rgba(31, 30, 27, 0.46);
-  --w-ink-4:       rgba(31, 30, 27, 0.28);
+  /* Ink — brand exact */
+  --w-ink:         #1d1d1f;
+  --w-ink-2:       rgba(29, 29, 31, 0.58);   /* brand --fg-2 */
+  --w-ink-3:       rgba(29, 29, 31, 0.40);   /* brand --fg-3 */
+  --w-ink-4:       rgba(29, 29, 31, 0.22);
 
-  /* Lines — barely visible */
-  --w-hairline:    rgba(31, 30, 27, 0.08);
-  --w-hairline-2:  rgba(31, 30, 27, 0.14);
+  /* Lines — brand fog-lines */
+  --w-hairline:    rgba(29, 29, 31, 0.10);   /* brand --fog-line */
+  --w-hairline-2:  rgba(29, 29, 31, 0.18);   /* brand --fog-line-2 */
 
-  /* Accent — used once per screen, max */
-  --w-accent:      #C96442;     /* terracotta — Claude-ish warmth */
-  --w-accent-soft: rgba(201, 100, 66, 0.10);
+  /* Accent — brand signal blue. One accent. Always. */
+  --w-accent:      #0066cc;                  /* brand --signal */
+  --w-accent-soft: rgba(0, 102, 204, 0.10);  /* brand signal-glow alpha */
 
-  /* Radii */
+  /* Radii — workspace interpretation of brand (calmer than brand's 30px card) */
   --w-r-card:      12px;
-  --w-r-input:     16px;
+  --w-r-input:     14px;                     /* brand --r-chip */
   --w-r-pill:      9999px;
 
   /* Type */

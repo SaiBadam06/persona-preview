@@ -65,6 +65,40 @@ export function WorkspaceSidebar(): React.JSX.Element {
 
   return (
     <aside className="workspace-sidebar flex w-[268px] shrink-0 flex-col">
+      {/* PersonaOn wordmark · brand mark — Instrument Serif + signal-blue pulse dot */}
+      <Link
+        href="/workspace"
+        aria-label="PersonaOn — home"
+        style={{
+          display: 'inline-flex',
+          alignItems: 'baseline',
+          gap: 1,
+          padding: '14px 18px 10px',
+          fontFamily: "var(--w-font-display)",
+          fontWeight: 400,
+          fontSize: 22,
+          lineHeight: 1,
+          letterSpacing: '-0.005em',
+          color: 'var(--w-ink)',
+          textDecoration: 'none',
+        }}
+      >
+        PersonaOn
+        <span
+          aria-hidden="true"
+          style={{
+            display: 'inline-block',
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: 'var(--w-accent)',
+            marginLeft: 7,
+            alignSelf: 'center',
+            boxShadow: '0 0 0 4px rgba(0, 102, 204, 0.18)',
+          }}
+        />
+      </Link>
+
       <Link
         href={`${pathname}?modal=record`}
         scroll={false}
