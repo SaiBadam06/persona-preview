@@ -8,7 +8,7 @@ This repo is the self-contained workspace UX prototype — a fresh Next.js app, 
 
 ## 🌐 Live demo (ephemeral)
 
-**https://wolf-auction-elect-deemed.trycloudflare.com**
+**https://opportunity-demonstrated-desirable-builds.trycloudflare.com**
 
 > ⚠️ Cloudflare quick-tunnel running on a dev machine — works as long as the host keeps it running. URL changes if it restarts. Don't post in public channels. For a persistent URL, switch to a Vercel preview deploy.
 
