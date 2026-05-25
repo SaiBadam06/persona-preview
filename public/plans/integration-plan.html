@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PersonaOn — Backend ↔ Frontend Integration Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-app: #FAF9F5;
+      --bg-canvas: #FFFFFF;
+      --bg-quiet: rgba(31, 30, 27, 0.025);
+      --bg-active: rgba(31, 30, 27, 0.06);
+      --ink: #1F1E1B;
+      --ink-2: rgba(31, 30, 27, 0.68);
+      --ink-3: rgba(31, 30, 27, 0.46);
+      --ink-4: rgba(31, 30, 27, 0.28);
+      --hairline: rgba(31, 30, 27, 0.08);
+      --hairline-2: rgba(31, 30, 27, 0.14);
+      --accent: #C96442;
+      --accent-soft: rgba(201, 100, 66, 0.10);
+      --code-bg: #1F1E1B;
+      --code-fg: #FAF9F5;
+      --warn: #B83A3E;
+      --warn-soft: rgba(229, 72, 77, 0.06);
+      --ok: #1A8F5A;
+      --ok-soft: rgba(43, 182, 115, 0.08);
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-app);
+      color: var(--ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+
+    .doc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 32px 120px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--ink-3);
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+
+    .back:hover { color: var(--ink); }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 1.1;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+
+    .lede {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink-2);
+      margin: 0 0 16px;
+    }
+
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--ink-3);
+      padding: 14px 0;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      margin: 32px 0 48px;
+    }
+
+    .toc {
+      background: var(--bg-quiet);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 0 0 48px;
+    }
+
+    .toc h3 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 0 0 12px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+
+    .toc li {
+      margin: 5px 0;
+    }
+
+    .toc a {
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+
+    .toc a:hover { color: var(--ink); text-decoration: underline; }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.004em;
+      color: var(--ink);
+      margin: 64px 0 16px;
+      padding-top: 32px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    h2:first-of-type { padding-top: 0; border-top: none; margin-top: 0; }
+
+    h2 .phase-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-right: 12px;
+      vertical-align: middle;
+      padding: 2px 8px;
+      background: var(--accent-soft);
+      border-radius: 999px;
+    }
+
+    h2 .duration {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink-3);
+      font-weight: 400;
+      margin-left: 8px;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 32px 0 12px;
+    }
+
+    h4 {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 24px 0 10px;
+    }
+
+    p {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+
+    ul, ol {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink);
+      padding-left: 22px;
+      margin: 0 0 16px;
+    }
+
+    li { margin: 6px 0; }
+    li > ul, li > ol { margin: 6px 0 6px; }
+
+    strong { font-weight: 500; color: var(--ink); }
+
+    a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: var(--bg-active);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--ink);
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      padding: 18px 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: inherit;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 24px;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--ink-3);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--hairline-2);
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--hairline);
+      color: var(--ink);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    td.mono { font-family: var(--font-mono); font-size: 12px; }
+
+    .status-exists  { color: var(--ok); font-weight: 500; font-family: var(--font-mono); font-size: 11.5px; }
+    .status-partial { color: var(--accent); font-weight: 500; font-family: var(--font-mono); font-size: 11.5px; }
+    .status-missing { color: var(--warn); font-weight: 500; font-family: var(--font-mono); font-size: 11.5px; }
+
+    .callout {
+      padding: 16px 20px;
+      background: var(--bg-quiet);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0 24px;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--ink-2);
+    }
+
+    .callout strong { color: var(--ink); }
+
+    .callout.warn {
+      background: var(--warn-soft);
+      border-left-color: var(--warn);
+    }
+
+    .callout.ok {
+      background: var(--ok-soft);
+      border-left-color: var(--ok);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--hairline-2);
+      padding: 4px 0 4px 18px;
+      margin: 18px 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    .deliverable {
+      background: var(--bg-canvas);
+      border: 1px solid var(--hairline);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 12px 0;
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+
+    .deliverable .label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+
+    .deliverable strong { color: var(--ink); }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--hairline);
+      margin: 48px 0;
+    }
+
+    .day-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 18px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .day-row:last-child { border-bottom: none; }
+
+    .day-row .day {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+
+    .day-row .what {
+      font-size: 14.5px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .footer-cta {
+      margin-top: 64px;
+      padding: 28px 32px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--hairline);
+      border-radius: 14px;
+    }
+
+    .footer-cta h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .footer-cta p {
+      margin: 0 0 16px;
+      color: var(--ink-2);
+      font-size: 14.5px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 36px; }
+      h2 { font-size: 26px; }
+      h3 { font-size: 19px; }
+      .doc { padding: 32px 20px 80px; }
+      table { font-size: 12.5px; }
+      th, td { padding: 8px 6px; }
+    }
+
+    /* ============================================================
+       Print — produces a clean PDF when user prints to PDF.
+       Keep the warm parchment look (requires "background graphics" ON
+       in the print dialog).
+       ============================================================ */
+    @media print {
+      @page { margin: 0.7in; size: letter; }
+
+      html, body { background: var(--bg-app); }
+      .doc { max-width: 100%; padding: 0; }
+      .back, .footer-cta { display: none !important; }
+
+      /* Print-appropriate type scale */
+      h1 { font-size: 30pt; line-height: 1.1; margin: 0 0 12pt; }
+      h2 {
+        font-size: 18pt;
+        margin: 24pt 0 10pt;
+        padding-top: 14pt;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      h3 { font-size: 14pt; margin: 16pt 0 6pt; page-break-after: avoid; break-after: avoid; }
+      h4 { font-size: 10pt; }
+      p, li { font-size: 10.5pt; line-height: 1.45; }
+      .lede { font-size: 12pt; }
+      .meta-bar { font-size: 9pt; padding: 8pt 0; margin: 16pt 0 24pt; }
+      .eyebrow { font-size: 9pt; }
+
+      /* Layout — no orphans, keep tables/code/callouts intact */
+      table, pre, blockquote, .callout, .deliverable, .day-row {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      tr { page-break-inside: avoid; break-inside: avoid; }
+
+      /* Phase tags keep their styling — they're part of the brand */
+      h2 .phase-tag { font-size: 8.5pt; padding: 1pt 6pt; }
+      h2 .duration { font-size: 10pt; }
+
+      /* Tables — tighter for print */
+      table { font-size: 9.5pt; }
+      th { font-size: 8pt; padding: 5pt 8pt; }
+      td { padding: 7pt 8pt; }
+
+      /* Code blocks — keep dark; looks designed in PDF */
+      pre { font-size: 9pt; padding: 10pt 12pt; }
+      code { font-size: 9pt; }
+
+      /* TOC: keep but tighten */
+      .toc { padding: 12pt 16pt; margin-bottom: 24pt; }
+      .toc ol { font-size: 10pt; }
+
+      /* Hide the empty "first-of-type" border reset because real first H2 needs margin */
+      h2:first-of-type { padding-top: 14pt; border-top: 1px solid var(--hairline); margin-top: 24pt; }
+
+      /* Render external URLs after links so they're findable on paper */
+      a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 8pt; color: var(--ink-3); }
+      a[href^="#"]:after, a[href^="./"]:after { content: ""; }
+
+      /* Day-row stays grid-aligned */
+      .day-row { padding: 8pt 0; }
+      .day-row .day { font-size: 8.5pt; }
+      .day-row .what { font-size: 10pt; }
+    }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <a href="./index.html" class="back">← Engineering plans</a>
+
+    <p class="eyebrow">Plan 01 · Engineering</p>
+    <h1>From mock to shipping — without painting ourselves into a corner.</h1>
+    <p class="lede">
+      A six-phase plan to move the workspace prototype from pure mocks to a real product running against the live backend, structured so the desktop app drops in afterward as a shell over shared code instead of a rewrite.
+    </p>
+
+    <div class="meta-bar">
+      <span>~25 min read</span>
+      <span>6 phases · ~12 weeks total</span>
+      <span>Team: 6 (1 founder · 1 lead · 4 devs)</span>
+    </div>
+
+    <div class="toc">
+      <h3>What's inside</h3>
+      <ol>
+        <li><a href="#phase-0">Phase 0 — Restructure the repo first</a></li>
+        <li><a href="#phase-1">Phase 1 — Build the gap-finding harness</a></li>
+        <li><a href="#phase-2">Phase 2 — Wire one vertical slice end-to-end</a></li>
+        <li><a href="#phase-3">Phase 3 — Parity wave</a></li>
+        <li><a href="#phase-4">Phase 4 — Rollout</a></li>
+        <li><a href="#phase-5">Phase 5 — Desktop app</a></li>
+        <li><a href="#hygiene">Keeping the repo clean as it grows</a></li>
+        <li><a href="#start">Where to start tomorrow</a></li>
+        <li><a href="#pushback">A few things to push back on</a></li>
+      </ol>
+    </div>
+
+    <h2 id="phase-0"><span class="phase-tag">Phase 0</span>Restructure the repo first<span class="duration">~1 week, biggest one-time win</span></h2>
+    <p>
+      The current <code>/frontend</code> + <code>/backend</code> split worked for one app. With desktop coming, you need a monorepo so web and desktop share UI, types, and the API client. Doing this now is dramatically cheaper than after both apps exist.
+    </p>
+
+    <h3>Recommended structure</h3>
+    <pre><code>personaon/
+├── apps/
+│   ├── web/              ← current /frontend (Next.js shell + marketing + auth)
+│   ├── desktop/          ← future Tauri shell
+│   └── api/              ← current /backend (FastAPI)
+│
+├── packages/
+│   ├── workspace/        ← THE workspace UI (sidebar, pages, drawers, overlays)
+│   │                       both web and desktop import this
+│   ├── ui/               ← primitive components (Button, Modal, Toggle)
+│   ├── sdk/              ← TypeScript client, auto-generated from FastAPI OpenAPI
+│   ├── types/            ← shared TS types (Meeting, Person, Memory)
+│   └── tokens/           ← CSS variables + Tailwind preset
+│
+├── docs/
+│   ├── api-map.md        ← workspace surface → backend endpoint mapping (the gap doc)
+│   └── adr/              ← architecture decisions
+│
+├── pnpm-workspace.yaml   ← pnpm + turborepo is the cheapest stack
+├── turbo.json
+└── package.json</code></pre>
+
+    <div class="callout">
+      <strong>Why this matters for desktop later.</strong> The desktop app is <em>not</em> a rewrite — it's a Tauri (or Electron) shell that mounts <code>packages/workspace</code> and adds native features (system tray, global hotkey, meeting auto-join, file watcher). If the workspace is locked to Next.js routing today, splitting it later is painful.
+    </div>
+
+    <h3>Concrete moves</h3>
+    <ol>
+      <li><code>mv frontend apps/web &amp;&amp; mv backend apps/api</code></li>
+      <li>Create <code>pnpm-workspace.yaml</code> with <code>apps/*</code> and <code>packages/*</code></li>
+      <li>Extract <code>app/workspace/*</code> from the web app into <code>packages/workspace/</code> — it has no Next-specific deps if you swap <code>next/link</code> and <code>next/navigation</code> for a tiny router adapter</li>
+      <li>The web app's <code>app/workspace/page.tsx</code> becomes a thin re-export</li>
+    </ol>
+
+    <p>This unlocks every later phase. <strong>Don't ship features during this week</strong> — it's a focused refactor.</p>
+
+    <h2 id="phase-1"><span class="phase-tag">Phase 1</span>Build the gap-finding harness<span class="duration">~3-4 days</span></h2>
+    <p>
+      You can't wire screens without knowing what's missing. Build the tools to make gaps loud.
+    </p>
+
+    <h3>1. The API map</h3>
+    <p>A single Markdown table at <code>docs/api-map.md</code>, one row per workspace data need. Sorted by status, then by priority. This is your <strong>gap matrix</strong>.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Surface</th>
+          <th>Data need</th>
+          <th>Endpoint</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Today home</td>
+          <td>Pending counts (review · follow-ups · visitor Qs)</td>
+          <td class="mono">GET /v2/dashboard/pending</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Today home</td>
+          <td>Today's meetings</td>
+          <td class="mono">GET /v2/meetings/{twin}?day=today</td>
+          <td><span class="status-exists">EXISTS</span></td>
+        </tr>
+        <tr>
+          <td>Meeting page</td>
+          <td>Recap</td>
+          <td class="mono">GET /v2/meetings/{twin}/{id}/recap</td>
+          <td><span class="status-exists">EXISTS</span></td>
+        </tr>
+        <tr>
+          <td>Meeting page</td>
+          <td>Memory candidates per meeting</td>
+          <td class="mono">GET /v2/meetings/{twin}/{id}/candidates</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Meeting page</td>
+          <td>Approve / ignore candidate</td>
+          <td class="mono">POST /v2/memory/{id}/approve</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Review</td>
+          <td>All pending across types</td>
+          <td class="mono">GET /v2/review?twin={id}</td>
+          <td><span class="status-partial">PARTIAL</span></td>
+        </tr>
+        <tr>
+          <td>Person detail</td>
+          <td>Persona-mention permission</td>
+          <td class="mono">PUT /v2/people/{id}/permission</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Routines</td>
+          <td>List · create · update · run · history</td>
+          <td class="mono">/v2/routines/*</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Visitors</td>
+          <td>Session list + unanswered detection</td>
+          <td class="mono">GET /v2/visitors?twin={id}</td>
+          <td><span class="status-partial">PARTIAL</span></td>
+        </tr>
+        <tr>
+          <td>Persona drawer</td>
+          <td>Allowed-topics grouped from memory</td>
+          <td class="mono">GET /v2/persona/{id}/topics</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Settings</td>
+          <td>Export memory dump</td>
+          <td class="mono">POST /v2/memory/{twin}/export</td>
+          <td><span class="status-missing">MISSING</span></td>
+        </tr>
+        <tr>
+          <td>Cmd-K</td>
+          <td>Search across meetings · people · memory</td>
+          <td class="mono">GET /v2/search?q=...&amp;twin={id}</td>
+          <td><span class="status-partial">PARTIAL</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Status is one of <span class="status-exists">EXISTS</span> · <span class="status-partial">PARTIAL</span> · <span class="status-missing">MISSING</span>. Build the MISSING ones in dependency order.</p>
+
+    <h3>2. MSW (Mock Service Worker) in the SDK package</h3>
+    <p>The workspace already runs on mocks today. Convert those mocks into MSW handlers in <code>packages/sdk/mocks/</code>. Now:</p>
+    <ul>
+      <li>Frontend devs work against real-looking API shapes</li>
+      <li>Backend devs match the contract MSW defines</li>
+      <li>When backend is ready, you flip a single env var (<code>USE_MOCK_API=false</code>) and the same UI hits the real backend</li>
+      <li>Tests run against MSW handlers — no flaky integration</li>
+    </ul>
+
+    <h3>3. A typed <code>useApi()</code> hook with explicit gaps</h3>
+    <p>Every workspace fetch goes through it. If the endpoint is marked <code>MISSING</code> in the API map, the hook throws a helpful error in dev:</p>
+
+    <pre><code>const meetings = useApi('GET /v2/meetings/{twin}', { twin });
+const approve  = useApi('POST /v2/memory/{id}/approve', { id });
+//                       ⚠ throws "Not implemented yet — see api-map.md"</code></pre>
+
+    <p>This means gaps surface the <em>first time</em> you try to wire a screen. No silent fallbacks.</p>
+
+    <h3>4. Generate the SDK from OpenAPI</h3>
+    <p>FastAPI already produces <code>/openapi.json</code>. Run <code>openapi-typescript-codegen</code> in CI on every backend deploy. The frontend imports typed clients automatically. <strong>No manual SDK maintenance.</strong></p>
+
+    <h2 id="phase-2"><span class="phase-tag">Phase 2</span>Wire one vertical slice end-to-end<span class="duration">~2-3 weeks</span></h2>
+    <p>Don't try to ship the whole workspace at once. Pick the <strong>smallest meaningful flow that touches every layer.</strong></p>
+
+    <blockquote>
+      "Record a meeting → get a recap → approve a memory → see it become a persona answer."
+    </blockquote>
+
+    <p>That single journey exercises:</p>
+    <ul>
+      <li>Recording (Recall.ai bot → audio → transcript)</li>
+      <li>Recap generation (LLM summarization)</li>
+      <li>Memory candidate extraction</li>
+      <li>Approval flow (writes to persona's allowed-to-say set)</li>
+      <li>Persona answer (retrieval + grounded generation with the new fact)</li>
+      <li>View as visitor (sees the answer in public chat)</li>
+    </ul>
+
+    <p>Ship this slice behind a feature flag (<code>workspace_v2_enabled</code>) for yourself + a handful of users. <strong>Don't ship anything else until this loop feels alive end-to-end.</strong> If this works, the rest is mostly more of the same.</p>
+
+    <div class="callout ok">
+      <strong>Why this slice specifically?</strong> It's the unique value prop of PersonaOn in one journey. If this loop doesn't work, the product doesn't work — so fix it first, then expand.
+    </div>
+
+    <h2 id="phase-3"><span class="phase-tag">Phase 3</span>Parity wave<span class="duration">~4-6 weeks, parallelisable</span></h2>
+    <p>Now you systematically work through the API map. Split into tracks that can run in parallel:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Track</th>
+          <th>Owner concern</th>
+          <th>Endpoints to build</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Memory engine</strong></td>
+          <td>Backend</td>
+          <td>candidates, approve, allowed-topics, embeddings</td>
+        </tr>
+        <tr>
+          <td><strong>People intelligence</strong></td>
+          <td>Backend</td>
+          <td>person permissions, private notes, open commitments</td>
+        </tr>
+        <tr>
+          <td><strong>Routines</strong></td>
+          <td>Backend + infra</td>
+          <td>model, scheduler (cron), worker, run history, delivery (email + workspace note)</td>
+        </tr>
+        <tr>
+          <td><strong>Visitor analytics</strong></td>
+          <td>Backend</td>
+          <td>session aggregation, unanswered detection</td>
+        </tr>
+        <tr>
+          <td><strong>Workspace polish</strong></td>
+          <td>Frontend</td>
+          <td>empty states, loading, errors, real toggles</td>
+        </tr>
+        <tr>
+          <td><strong>Settings real</strong></td>
+          <td>Both</td>
+          <td>every toggle persists, every integration connects</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Each track has its own gap-map rows + MSW handlers + UI screens. Cross-track integration tests sit on top. With 6 people, two tracks at a time is the sweet spot.</p>
+
+    <h2 id="phase-4"><span class="phase-tag">Phase 4</span>Rollout<span class="duration">~2-3 weeks</span></h2>
+    <p>GrowthBook (already in use). Three cohorts:</p>
+
+    <div class="deliverable">
+      <span class="label">Cohort 1</span>
+      <strong>Internal + opt-in beta</strong> (5-20 users) — <code>workspace_v2_enabled = true</code> for them only. Tight feedback loop with this group for two weeks.
+    </div>
+
+    <div class="deliverable">
+      <span class="label">Cohort 2</span>
+      <strong>New signups</strong> — default workspace; old dashboard still accessible via <code>/legacy</code> if they navigate there. Existing users see an opt-in banner.
+    </div>
+
+    <div class="deliverable">
+      <span class="label">Cohort 3</span>
+      <strong>All users</strong> — <code>/dashboard</code> redirects to <code>/workspace</code>; banner on the redirect explains "new workspace."
+    </div>
+
+    <p>After 2-3 weeks at cohort 3 with no fires, delete <code>/dashboard</code> entirely.</p>
+
+    <h2 id="phase-5"><span class="phase-tag">Phase 5</span>Desktop app<span class="duration">~4-6 weeks, after web is stable</span></h2>
+    <p>
+      <strong>Stack: Tauri 2.x.</strong> Rust core, web view for UI, ~10MB bundle, native menus/tray/hotkeys/file system. Better fit than Electron for the calm aesthetic. Electron is the safer choice if speed-to-ship trumps everything, but Tauri's bundle and startup time advantage compounds over thousands of installs.
+    </p>
+
+    <h3>Structure</h3>
+    <pre><code>apps/desktop/
+├── src-tauri/         ← Rust: tray · hotkeys · file watcher · system audio capture
+│   ├── main.rs
+│   └── tauri.conf.json
+└── src/
+    ├── App.tsx        ← mounts packages/workspace
+    ├── shell/         ← desktop-only chrome (menu bar, status)
+    └── native/        ← bridges to Rust commands</code></pre>
+
+    <p>The <code>packages/workspace</code> import is the same code as web. Desktop just adds:</p>
+
+    <ul>
+      <li><strong>Global hotkey</strong> (<code>Cmd+Shift+N</code>) → opens capture overlay</li>
+      <li><strong>System tray</strong> → recording status + Stop button</li>
+      <li><strong>Meeting auto-join</strong> → reads system calendar, joins bot to Zoom/Meet calls without browser</li>
+      <li><strong>System-level audio capture</strong> → record any meeting, even in-person calls</li>
+      <li><strong>File watcher</strong> → drop a PDF/audio/video file into <code>~/PersonaOn/</code> → auto-ingested</li>
+      <li><strong>Auto-update</strong> via Tauri updater</li>
+    </ul>
+
+    <p>The desktop app's value prop is <em>zero friction for the meeting-heavy user.</em> Nothing functional is on desktop that isn't on web; desktop is the always-available capture layer.</p>
+
+    <h2 id="hygiene">Keeping the repo clean as it grows</h2>
+
+    <h3>Hard rules</h3>
+    <ol>
+      <li><strong><code>packages/workspace</code> cannot import from <code>apps/web</code></strong> — enforced via <code>eslint-plugin-boundaries</code> or Turborepo's <code>denyList</code>. If you violate this, web-and-desktop sharing breaks silently.</li>
+      <li><strong>Every API call goes through <code>packages/sdk</code></strong> — no <code>fetch()</code> in workspace code. Lints fail otherwise.</li>
+      <li><strong>Every CSS variable lives in <code>packages/tokens</code></strong> — no inline hex anywhere outside tokens. Enforce with a lint.</li>
+      <li><strong>One ADR per non-trivial decision</strong> in <code>docs/adr/</code>. "Why Tauri over Electron." "Why <code>/workspace</code> not <code>/dashboard</code>." Future-you will thank present-you.</li>
+      <li><strong>API contract is the source of truth, not the implementation.</strong> Backend changes that break the SDK regenerate the types; frontend build breaks immediately. Catch contract drift at PR-time, not in prod.</li>
+    </ol>
+
+    <h3>Cleanups to do up front</h3>
+    <ul>
+      <li>Delete <code>/app/marketplace</code> (vestigial clone-marketplace route)</li>
+      <li>Delete old <code>/dashboard/widget/leads</code> if not used</li>
+      <li>Move design assets / mockups out of root into <code>docs/</code></li>
+      <li>Add a <code>CONTRIBUTING.md</code> with the package boundary rules</li>
+    </ul>
+
+    <h2 id="start">Where to start tomorrow</h2>
+    <p>If I were doing this:</p>
+
+    <div class="day-row">
+      <span class="day">Day 1-3</span>
+      <span class="what"><strong>Monorepo restructure.</strong> Don't ship features. Get pnpm + turborepo + workspace packages set up. Confirm <code>apps/web</code> builds and runs at parity with current.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 4-5</span>
+      <span class="what">Extract workspace to <code>packages/workspace</code>. Get web's <code>/workspace/*</code> re-importing from package. No behavior change.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 6-7</span>
+      <span class="what">Stand up <code>packages/sdk</code> with auto-generated types from current FastAPI. Write the <code>useApi()</code> hook with MSW fallback. Convert one or two existing dashboard surfaces (Today + Meeting detail) to use it as proof of concept.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 8-10</span>
+      <span class="what">Write <code>docs/api-map.md</code> covering every workspace surface. Mark each row EXISTS / PARTIAL / MISSING. Now you can see the work.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 11+</span>
+      <span class="what">Pick the vertical slice ("record → recap → approve → persona answer"), wire it, ship to yourself behind a flag.</span>
+    </div>
+
+    <div class="callout">
+      <strong>The day-1 commit is the most important one in the whole plan.</strong> Get the monorepo shape right and everything else compounds.
+    </div>
+
+    <h2 id="pushback">A few things I'd push back on</h2>
+    <ul>
+      <li><strong>Don't start with the desktop app.</strong> Ship web first, even if the value-add of desktop is obvious to you. Web is faster to iterate; desktop locks behaviors in a release cycle.</li>
+      <li><strong>Don't try to feature-flag-toggle individual workspace components inside the current <code>/dashboard</code>.</strong> Cleaner to ship the whole workspace at <code>/workspace</code> behind one flag and treat it as the rewrite it is.</li>
+      <li><strong>Don't generate the entire SDK by hand.</strong> Auto-generate from OpenAPI on every backend PR. Hand-written SDKs rot the moment you stop maintaining them.</li>
+      <li><strong>Don't build routines as a feature-of-the-prompt.</strong> Build it as a real scheduled-job system with its own table, its own worker, its own delivery channels. Routines is half the value of the product for sticky users; it needs to be real.</li>
+    </ul>
+
+    <div class="footer-cta">
+      <h3>Companion plan</h3>
+      <p>Setting up the GitHub org, teams, CODEOWNERS, branch protection, CI/CD, and the 7-day sequence to get six people shipping cleanly:</p>
+      <a href="./github-org-plan.html">Read Plan 02 — GitHub organisation &amp; team plan →</a>
+    </div>
+  </div>
+</body>
+</html>

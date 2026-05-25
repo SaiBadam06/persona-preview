@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Base reset — workspace owns its own scoped tokens in app/workspace/workspace-tokens.css */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #FAF9F5;
+  color: #1F1E1B;
+  font-family: 'Geist', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }

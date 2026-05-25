@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PersonaOn — GitHub Organisation &amp; Team Plan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-app: #FAF9F5;
+      --bg-canvas: #FFFFFF;
+      --bg-quiet: rgba(31, 30, 27, 0.025);
+      --bg-active: rgba(31, 30, 27, 0.06);
+      --ink: #1F1E1B;
+      --ink-2: rgba(31, 30, 27, 0.68);
+      --ink-3: rgba(31, 30, 27, 0.46);
+      --ink-4: rgba(31, 30, 27, 0.28);
+      --hairline: rgba(31, 30, 27, 0.08);
+      --hairline-2: rgba(31, 30, 27, 0.14);
+      --accent: #C96442;
+      --accent-soft: rgba(201, 100, 66, 0.10);
+      --code-bg: #1F1E1B;
+      --code-fg: #FAF9F5;
+      --warn: #B83A3E;
+      --warn-soft: rgba(229, 72, 77, 0.06);
+      --ok: #1A8F5A;
+      --ok-soft: rgba(43, 182, 115, 0.08);
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-app);
+      color: var(--ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.55;
+    }
+
+    .doc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 56px 32px 120px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--ink-3);
+      text-decoration: none;
+      margin-bottom: 40px;
+    }
+
+    .back:hover { color: var(--ink); }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin: 0 0 16px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 1.1;
+      letter-spacing: -0.008em;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+
+    .lede {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--ink-2);
+      margin: 0 0 16px;
+    }
+
+    .meta-bar {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--ink-3);
+      padding: 14px 0;
+      border-top: 1px solid var(--hairline);
+      border-bottom: 1px solid var(--hairline);
+      margin: 32px 0 48px;
+    }
+
+    .toc {
+      background: var(--bg-quiet);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 0 0 48px;
+    }
+
+    .toc h3 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 0 0 12px;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 22px;
+      font-size: 14px;
+      color: var(--ink-2);
+    }
+
+    .toc li { margin: 5px 0; }
+    .toc a { color: var(--ink-2); text-decoration: none; }
+    .toc a:hover { color: var(--ink); text-decoration: underline; }
+
+    h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.004em;
+      color: var(--ink);
+      margin: 64px 0 16px;
+      padding-top: 32px;
+      border-top: 1px solid var(--hairline);
+    }
+
+    h2:first-of-type { padding-top: 0; border-top: none; margin-top: 0; }
+
+    h2 .section-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-right: 12px;
+      vertical-align: middle;
+      padding: 2px 8px;
+      background: var(--accent-soft);
+      border-radius: 999px;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.25;
+      color: var(--ink);
+      margin: 32px 0 12px;
+    }
+
+    h4 {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 24px 0 10px;
+    }
+
+    p {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink);
+      margin: 0 0 14px;
+    }
+
+    ul, ol {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink);
+      padding-left: 22px;
+      margin: 0 0 16px;
+    }
+
+    li { margin: 6px 0; }
+    li > ul, li > ol { margin: 6px 0; }
+
+    strong { font-weight: 500; color: var(--ink); }
+    a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: var(--bg-active);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--ink);
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      padding: 18px 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.6;
+      margin: 0 0 18px;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      font-size: inherit;
+    }
+
+    pre .comment { color: rgba(250, 249, 245, 0.45); }
+    pre .accent  { color: #E89D7C; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 0 24px;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--ink-3);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--hairline-2);
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--hairline);
+      color: var(--ink);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    td.mono { font-family: var(--font-mono); font-size: 12px; }
+    td.count { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); }
+
+    .team-pill {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .callout {
+      padding: 16px 20px;
+      background: var(--bg-quiet);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      margin: 20px 0 24px;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--ink-2);
+    }
+
+    .callout strong { color: var(--ink); }
+
+    .callout.warn {
+      background: var(--warn-soft);
+      border-left-color: var(--warn);
+    }
+
+    .callout.ok {
+      background: var(--ok-soft);
+      border-left-color: var(--ok);
+    }
+
+    blockquote {
+      border-left: 3px solid var(--hairline-2);
+      padding: 4px 0 4px 18px;
+      margin: 18px 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 17px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    .rule-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rule-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--hairline);
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 14px;
+    }
+
+    .rule-list li:last-child { border-bottom: none; }
+
+    .rule-num {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      padding-top: 2px;
+    }
+
+    .rule-body { font-size: 15px; line-height: 1.6; }
+
+    .day-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 18px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .day-row:last-child { border-bottom: none; }
+
+    .day-row .day {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+
+    .day-row .what {
+      font-size: 14.5px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .footer-cta {
+      margin-top: 64px;
+      padding: 28px 32px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--hairline);
+      border-radius: 14px;
+    }
+
+    .footer-cta h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 22px;
+    }
+
+    .footer-cta p {
+      margin: 0 0 16px;
+      color: var(--ink-2);
+      font-size: 14.5px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 36px; }
+      h2 { font-size: 26px; }
+      h3 { font-size: 19px; }
+      .doc { padding: 32px 20px 80px; }
+      table { font-size: 12.5px; }
+      th, td { padding: 8px 6px; }
+      pre { font-size: 11px; padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="doc">
+    <a href="./index.html" class="back">← Engineering plans</a>
+
+    <p class="eyebrow">Plan 02 · Engineering ops</p>
+    <h1>Six people, one product — set up so nobody steps on each other.</h1>
+    <p class="lede">
+      How to structure the GitHub organisation, distribute review load off you and the lead, lock down <code>main</code>, automate deploys, and onboard the four developers in a week without burning a sprint.
+    </p>
+
+    <div class="meta-bar">
+      <span>~20 min read</span>
+      <span>8 sections</span>
+      <span>Team: 1 founder · 1 lead · 4 devs</span>
+    </div>
+
+    <div class="toc">
+      <h3>What's inside</h3>
+      <ol>
+        <li><a href="#org">GitHub organisation structure</a></li>
+        <li><a href="#teams">Teams — the people structure</a></li>
+        <li><a href="#codeowners">CODEOWNERS — where reviews actually get enforced</a></li>
+        <li><a href="#branches">Branch strategy + protection</a></li>
+        <li><a href="#cicd">CI/CD with GitHub Actions</a></li>
+        <li><a href="#secrets">Secrets management — three layers</a></li>
+        <li><a href="#projects">Project management</a></li>
+        <li><a href="#day-one">Day-one files</a></li>
+        <li><a href="#sequence">The seven-day setup sequence</a></li>
+        <li><a href="#avoid">What to avoid</a></li>
+      </ol>
+    </div>
+
+    <h2 id="org"><span class="section-tag">01</span>GitHub organisation structure</h2>
+    <p>
+      Create org <code>personaon</code> (or <code>personaon-inc</code> if taken). Inside it, <strong>one main monorepo</strong> plus a couple of supporting repos. At 6 people on one product, monorepo wins decisively — atomic full-stack PRs, shared CI, one clone for onboarding, no cross-repo sync drift between API and clients.
+    </p>
+
+    <pre><code>personaon/
+├── personaon              <span class="comment">← main monorepo (web + api + desktop + shared packages)</span>
+├── .github                <span class="comment">← org-wide PR templates, security policy, profile README</span>
+├── infra                  <span class="comment">← Terraform/Pulumi for GCP + Supabase + Cloudflare</span>
+│                            <span class="comment">  (separate so infra has tighter access controls)</span>
+└── brand                  <span class="comment">← logos, brand kit, marketing assets (private)</span></code></pre>
+
+    <p>That's it. <strong>Resist the urge to split web/api/desktop into separate repos</strong> — at 6 people it costs more than it saves.</p>
+
+    <h2 id="teams"><span class="section-tag">02</span>Teams — the people structure</h2>
+    <p>Five teams, mapped to how reviews and access actually work:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Team</th>
+          <th>Members</th>
+          <th>What they own</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="team-pill">@personaon/leadership</span></td>
+          <td class="count">2</td>
+          <td>You + lead. Admin · org settings · secrets · merging to <code>main</code></td>
+        </tr>
+        <tr>
+          <td><span class="team-pill">@personaon/engineers</span></td>
+          <td class="count">6</td>
+          <td>All 6. Write access · code review · merge to <code>staging</code></td>
+        </tr>
+        <tr>
+          <td><span class="team-pill">@personaon/backend-reviewers</span></td>
+          <td class="count">2-3</td>
+          <td>Lead + 1-2 backend devs. CODEOWNER for <code>apps/api/**</code></td>
+        </tr>
+        <tr>
+          <td><span class="team-pill">@personaon/frontend-reviewers</span></td>
+          <td class="count">2-3</td>
+          <td>Lead + 1-2 frontend devs. CODEOWNER for <code>apps/web/**</code> &amp; <code>packages/workspace/**</code></td>
+        </tr>
+        <tr>
+          <td><span class="team-pill">@personaon/desktop-reviewers</span></td>
+          <td class="count">1-2</td>
+          <td>Lead + whoever does desktop. CODEOWNER for <code>apps/desktop/**</code> (when it exists)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Why reviewer-teams exist:</strong> to distribute the review load off you and the lead. Assign 2-3 people per area so any of them can unblock a PR. Granular per-feature teams matter at 30+ — for 6 people, this is plenty.
+    </div>
+
+    <h2 id="codeowners"><span class="section-tag">03</span>CODEOWNERS — where reviews actually get enforced</h2>
+    <p>Put this at <code>.github/CODEOWNERS</code>:</p>
+
+    <pre><code><span class="comment"># Default — falls through to leadership</span>
+*                              @personaon/leadership
+
+<span class="comment"># Backend</span>
+apps/api/                      @personaon/backend-reviewers
+apps/api/modules/auth/         @personaon/leadership   <span class="comment"># auth needs founder/lead eyes</span>
+apps/api/modules/billing/      @personaon/leadership   <span class="comment"># billing too</span>
+
+<span class="comment"># Web</span>
+apps/web/                      @personaon/frontend-reviewers
+packages/workspace/            @personaon/frontend-reviewers
+packages/ui/                   @personaon/frontend-reviewers
+
+<span class="comment"># Desktop (when it exists)</span>
+apps/desktop/                  @personaon/desktop-reviewers
+
+<span class="comment"># Shared contract — extra careful</span>
+packages/sdk/                  @personaon/leadership @personaon/backend-reviewers @personaon/frontend-reviewers
+packages/types/                @personaon/leadership
+
+<span class="comment"># Infrastructure &amp; CI</span>
+infra/                         @personaon/leadership
+.github/                       @personaon/leadership
+**/Dockerfile                  @personaon/leadership
+**/*.tf                        @personaon/leadership</code></pre>
+
+    <p>This means a backend dev can review a backend PR without bothering you. <strong>The lead and you only get tagged on touchy stuff</strong> (auth, billing, infra, shared contract).</p>
+
+    <h2 id="branches"><span class="section-tag">04</span>Branch strategy + protection</h2>
+    <p>Keep your current <code>staging → main</code> model — your team already uses it and production deploys auto-trigger from <code>main</code>.</p>
+
+    <h3>Workflow</h3>
+    <pre><code>feat/short-name  →  PR  →  staging  →  PR  →  main</code></pre>
+
+    <h3>Branch protection on <code>main</code></h3>
+    <p>Settings → Branches → Add rule:</p>
+    <ul>
+      <li>Require pull request before merging</li>
+      <li>Require <strong>2 approvals</strong>, one of whom must be <span class="team-pill">@personaon/leadership</span></li>
+      <li>Require status checks to pass: <code>lint</code>, <code>typecheck</code>, <code>build</code>, <code>test</code></li>
+      <li>Require branches to be up to date</li>
+      <li>Require linear history (squash merge only)</li>
+      <li><strong>Restrict who can push to</strong> → <span class="team-pill">@personaon/leadership</span> only</li>
+      <li>Do not allow force pushes</li>
+      <li>Do not allow deletions</li>
+    </ul>
+
+    <h3>Branch protection on <code>staging</code></h3>
+    <p>More lenient for velocity:</p>
+    <ul>
+      <li>Require pull request before merging</li>
+      <li>Require <strong>1 approval</strong> from CODEOWNER</li>
+      <li>Require the same status checks</li>
+      <li>Allow squash merges only</li>
+      <li>Allow <span class="team-pill">@personaon/engineers</span> to push</li>
+    </ul>
+
+    <h3>Naming convention</h3>
+    <p>Enforce via PR title lint:</p>
+    <ul>
+      <li><code>feat/xxx</code> · <code>fix/xxx</code> · <code>chore/xxx</code> · <code>refactor/xxx</code> · <code>docs/xxx</code></li>
+      <li>Squash commit message = PR title in conventional-commits format</li>
+    </ul>
+
+    <h2 id="cicd"><span class="section-tag">05</span>CI/CD with GitHub Actions</h2>
+    <p>Four workflows under <code>.github/workflows/</code>:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Trigger</th>
+          <th>What it does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">ci.yml</td>
+          <td>PR to staging or main</td>
+          <td>Turborepo affected: lint + typecheck + test + build the packages this PR actually touches. Skip unchanged. Fast feedback.</td>
+        </tr>
+        <tr>
+          <td class="mono">deploy-staging.yml</td>
+          <td>Push to staging</td>
+          <td>Deploy api to Cloud Run staging service, deploy web to Vercel preview, run E2E smoke against staging URL.</td>
+        </tr>
+        <tr>
+          <td class="mono">deploy-prod.yml</td>
+          <td>Push to main</td>
+          <td>Same, prod targets. Manual approval gate from <span class="team-pill">@personaon/leadership</span> via GitHub Environments.</td>
+        </tr>
+        <tr>
+          <td class="mono">security.yml</td>
+          <td>Weekly + on PR</td>
+          <td>Dependabot updates, CodeQL scan, secret scanning, npm audit, pip-audit.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn">
+      <strong>Turborepo affected-package detection is critical at this size.</strong> Without it, every PR runs every test and reviewers stop trusting the green check. Within a week of slow CI, your team will start merging without waiting — that's where bad changes leak through.
+    </div>
+
+    <h3>GitHub Environments for the prod deploy</h3>
+    <ul>
+      <li>Create environment <code>production</code> with required reviewers = <span class="team-pill">@personaon/leadership</span></li>
+      <li>Production secrets live here, NOT in repo or org secrets</li>
+      <li>Means: a PR merge to <code>main</code> triggers the deploy workflow, which pauses waiting for one of you to click "approve" in the Actions UI</li>
+    </ul>
+
+    <h2 id="secrets"><span class="section-tag">06</span>Secrets management — three layers</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Where</th>
+          <th>What</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CI-time</strong></td>
+          <td>GitHub Environments (per-env)</td>
+          <td>Deploy tokens (GCP service account, Vercel token, Supabase service key for migrations)</td>
+        </tr>
+        <tr>
+          <td><strong>Runtime</strong></td>
+          <td>GCP Secret Manager + Supabase Vault</td>
+          <td>API keys actually consumed by the app (Gemini, Pinecone, Stripe, Recall.ai)</td>
+        </tr>
+        <tr>
+          <td><strong>Developer-local</strong></td>
+          <td>1Password / Doppler / Infisical</td>
+          <td><code>.env.local</code> rotation for the team</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Hard rules (put in CONTRIBUTING.md)</h3>
+    <ul>
+      <li>Never commit <code>.env</code>, <code>.env.local</code>, <code>*.key</code>, <code>*.pem</code></li>
+      <li>Use <code>.env.example</code> files only — actual values come from 1Password</li>
+      <li>Secret scanning is on; if push protection blocks you, <strong>investigate</strong>, don't bypass</li>
+    </ul>
+
+    <h2 id="projects"><span class="section-tag">07</span>Project management</h2>
+    <p>
+      <strong>GitHub Projects v2</strong> is now genuinely good and free with the org. One project, multiple views:
+    </p>
+    <ul>
+      <li><strong>Sprint board</strong> — Today / In progress / In review / Done (this week)</li>
+      <li><strong>Backlog</strong> — prioritized list</li>
+      <li><strong>By area</strong> — backend / frontend / desktop / infra columns</li>
+      <li><strong>Roadmap</strong> — by milestone (Phase 1 vertical slice, Phase 2 parity, etc.)</li>
+    </ul>
+
+    <h3>Issue templates</h3>
+    <p>At <code>.github/ISSUE_TEMPLATE/</code>:</p>
+    <ul>
+      <li><code>bug.yml</code> — repro steps · expected · actual · env</li>
+      <li><code>feature.yml</code> — user story · acceptance criteria · designs link</li>
+      <li><code>chore.yml</code> — refactor / cleanup</li>
+      <li><code>incident.yml</code> — for production issues, links to postmortem template</li>
+    </ul>
+
+    <h3>PR template</h3>
+    <p>At <code>.github/PULL_REQUEST_TEMPLATE.md</code>:</p>
+    <ul>
+      <li>What &amp; why</li>
+      <li>Screenshots (for UI changes)</li>
+      <li>Test plan</li>
+      <li>Risk + rollback plan</li>
+      <li>Linked issues</li>
+    </ul>
+
+    <div class="callout">
+      <strong>If your team already uses Linear,</strong> skip GitHub Projects and just link Linear to GitHub via the integration. Don't run two trackers — pick one and commit.
+    </div>
+
+    <h2 id="day-one"><span class="section-tag">08</span>Day-one files</h2>
+    <p>Drop these in the monorepo immediately — they set the tone:</p>
+
+    <pre><code>.github/
+├── CODEOWNERS
+├── PULL_REQUEST_TEMPLATE.md
+├── ISSUE_TEMPLATE/
+│   ├── bug.yml
+│   ├── feature.yml
+│   └── chore.yml
+├── workflows/
+│   ├── ci.yml
+│   ├── deploy-staging.yml
+│   ├── deploy-prod.yml
+│   └── security.yml
+└── dependabot.yml
+
+CONTRIBUTING.md         <span class="comment">← how to set up local, branch naming, PR process</span>
+SECURITY.md             <span class="comment">← how to report vulnerabilities</span>
+CODE_OF_CONDUCT.md      <span class="comment">← short, standard one</span>
+README.md               <span class="comment">← project overview, links to CONTRIBUTING</span>
+docs/adr/
+├── 0001-monorepo.md
+├── 0002-staging-then-main.md
+└── 0003-tauri-for-desktop.md
+LICENSE                 <span class="comment">← decide: closed source? proprietary header on each file?</span></code></pre>
+
+    <h2 id="sequence"><span class="section-tag">09</span>The seven-day setup sequence</h2>
+
+    <div class="day-row">
+      <span class="day">Day 1</span>
+      <span class="what"><strong>Create the org as <code>personaon</code>.</strong> Don't transfer the repo yet. Create the five teams above. Invite your lead + 4 devs to the org. Add everyone to the correct teams.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 2</span>
+      <span class="what">Set up <code>personaon/.github</code> repo. Drop in the workflows, CODEOWNERS, PR/issue templates. This is your org-wide policy repo.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 3</span>
+      <span class="what">Create <code>personaon/personaon</code> (the monorepo). Don't transfer the current repo yet — set up the monorepo restructure locally, then push as the first commit. Old repo becomes archive.
+        <br><em>Or</em>, if the current repo's git history is valuable, transfer it via "Transfer ownership" then restructure in-place over a series of PRs.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 4</span>
+      <span class="what">Set up branch protection rules on <code>main</code> and <code>staging</code>. Test by trying to push directly (should fail). Set up GitHub Environments for <code>staging</code> and <code>production</code>. Move secrets in.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 5</span>
+      <span class="what">Write <code>CONTRIBUTING.md</code> and a short README walking through local setup. <strong>Have your lead try the onboarding from a fresh clone</strong> — they'll find gaps you can't see.</span>
+    </div>
+    <div class="day-row">
+      <span class="day">Day 6-7</span>
+      <span class="what">Onboard the 4 devs. Pair each with the lead for their first PR. Watch for friction in the workflow.</span>
+    </div>
+
+    <h2 id="avoid"><span class="section-tag">10</span>What to avoid</h2>
+
+    <ul class="rule-list">
+      <li>
+        <span class="rule-num">01</span>
+        <span class="rule-body"><strong>Don't transfer the current repo with un-rotated secrets in history.</strong> First, audit git history for any leaked tokens (<code>gitleaks detect</code>), rotate anything found, <em>then</em> transfer.</span>
+      </li>
+      <li>
+        <span class="rule-num">02</span>
+        <span class="rule-body"><strong>Don't make the lead the sole reviewer on every PR.</strong> CODEOWNERS distributes load. If you set it up right, lead reviews only the touchy areas (auth, billing, shared contract).</span>
+      </li>
+      <li>
+        <span class="rule-num">03</span>
+        <span class="rule-body"><strong>Don't merge to main from feature branches.</strong> Always go through staging.</span>
+      </li>
+      <li>
+        <span class="rule-num">04</span>
+        <span class="rule-body"><strong>Don't store production secrets at the org level.</strong> Environment-scoped only.</span>
+      </li>
+      <li>
+        <span class="rule-num">05</span>
+        <span class="rule-body"><strong>Don't allow direct pushes to main, ever, even for emergencies.</strong> Hot-fix flow = PR with <code>hotfix/</code> prefix, 1 approval from leadership, fast-tracked through CI.</span>
+      </li>
+      <li>
+        <span class="rule-num">06</span>
+        <span class="rule-body"><strong>Don't underinvest in the README on day one.</strong> A 6-person team with a bad README burns 30+ developer-hours per onboarding. A good README pays back instantly.</span>
+      </li>
+    </ul>
+
+    <div class="footer-cta">
+      <h3>Companion plan</h3>
+      <p>The backend/frontend integration plan — monorepo restructure, gap-finding harness, vertical slice, parity wave, GrowthBook rollout, and how the desktop app drops in afterward:</p>
+      <a href="./integration-plan.html">Read Plan 01 — Backend ↔ frontend integration plan →</a>
+    </div>
+  </div>
+</body>
+</html>
