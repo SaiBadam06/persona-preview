@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import NavLink from '../../NavLink';
 import { MOCK_MEETINGS, formatRelativeDate, personSlug } from '../mockData';
 import { WorkspaceTopBar } from '../WorkspaceTopBar';
 import { PromptInput } from '../PromptInput';
@@ -56,7 +56,7 @@ export default function PeoplePage(): React.JSX.Element {
 
           <div>
             {people.map((p) => (
-              <Link key={p.name} href={`/workspace/people/${personSlug(p.name)}`} className="workspace-row">
+              <NavLink key={p.name} href={`/workspace/people/${personSlug(p.name)}`} className="workspace-row">
                 <div className="row-time">{formatRelativeDate(p.lastMet)}</div>
                 <div className="row-body">
                   <p className="row-title">{p.name}</p>
@@ -65,7 +65,7 @@ export default function PeoplePage(): React.JSX.Element {
                   </p>
                 </div>
                 <div className="row-status">{p.email ?? ''}</div>
-              </Link>
+              </NavLink>
             ))}
           </div>
         </div>

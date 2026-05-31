@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { notFound, useParams } from 'next/navigation';
+import NavLink from '../../../NavLink';
 import { ArrowLeft, Sparkles } from 'lucide-react';
 
 import {
@@ -48,7 +48,7 @@ export default function PersonDetailPage(): React.JSX.Element {
       <WorkspaceTopBar crumb="Person" title={person.name} />
       <div className="workspace-canvas">
         <div className="workspace-canvas-inner">
-          <Link
+          <NavLink
             href="/workspace/people"
             style={{
               fontSize: 13,
@@ -61,7 +61,7 @@ export default function PersonDetailPage(): React.JSX.Element {
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             All people
-          </Link>
+          </NavLink>
 
           <header className="workspace-person-hero">
             <div className="workspace-person-avatar">{getInitials(person.name)}</div>
@@ -103,7 +103,7 @@ export default function PersonDetailPage(): React.JSX.Element {
               ) : (
                 <div>
                   {meetings.map((m) => (
-                    <Link key={m.id} href={`/workspace/meeting/${m.id}`} className="workspace-row">
+                    <NavLink key={m.id} href={`/workspace/meeting/${m.id}`} className="workspace-row">
                       <div className="row-time">{formatRelativeDate(m.start)}</div>
                       <div className="row-body">
                         <p className="row-title">{m.title}</p>
@@ -115,7 +115,7 @@ export default function PersonDetailPage(): React.JSX.Element {
                       <div className="row-status">
                         {m.status === 'recording' ? 'live' : m.hasRecap ? 'recap' : ''}
                       </div>
-                    </Link>
+                    </NavLink>
                   ))}
                 </div>
               )}

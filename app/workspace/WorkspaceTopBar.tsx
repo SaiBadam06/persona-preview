@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+import NavLink from '../NavLink';
 import { Menu, PanelLeft, Settings, Share2, Eye } from 'lucide-react';
 
 import { MOCK_MEETINGS } from './mockData';
@@ -54,25 +54,25 @@ export function WorkspaceTopBar({ crumb, title, showShare = false }: WorkspaceTo
       </div>
       <div className="workspace-topbar-actions">
         {live && (
-          <Link href={`/workspace/meeting/${live.id}`} className="workspace-live-pill">
+          <NavLink href={`/workspace/meeting/${live.id}`} className="workspace-live-pill">
             <span className="dot" aria-hidden />
             <span>{live.title}</span>
             <span className="workspace-live-elapsed">· 14:21</span>
-          </Link>
+          </NavLink>
         )}
-        <Link href={buildHref('view', 'visitor')} className="workspace-topbar-btn" scroll={false}>
+        <NavLink href={buildHref('view', 'visitor')} className="workspace-topbar-btn" scroll={false}>
           <Eye className="h-4 w-4" />
           View as visitor
-        </Link>
+        </NavLink>
         {showShare && (
-          <Link href={buildHref('drawer', 'persona')} className="workspace-topbar-btn is-primary" scroll={false}>
+          <NavLink href={buildHref('drawer', 'persona')} className="workspace-topbar-btn is-primary" scroll={false}>
             <Share2 className="h-3.5 w-3.5" />
             Share
-          </Link>
+          </NavLink>
         )}
-        <Link href={buildHref('settings', 'general')} className="workspace-topbar-btn" aria-label="Settings" scroll={false}>
+        <NavLink href={buildHref('settings', 'general')} className="workspace-topbar-btn" aria-label="Settings" scroll={false}>
           <Settings className="h-4 w-4" />
-        </Link>
+        </NavLink>
       </div>
     </header>
   );

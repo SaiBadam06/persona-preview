@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
+import NavLink from '../NavLink';
 import { Suspense, useState } from 'react';
 import { ArrowRight, Calendar, Check, Link as LinkIcon } from 'lucide-react';
 
@@ -35,9 +35,9 @@ function WelcomeInner(): React.JSX.Element {
         ) : (
           <span />
         )}
-        <Link href="/workspace" className="welcome-skip">
+        <NavLink href="/workspace" className="welcome-skip">
           Skip for now
-        </Link>
+        </NavLink>
       </header>
 
       <main className="welcome-stage">
@@ -59,9 +59,9 @@ function WelcomeInner(): React.JSX.Element {
                 Get started
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
-              <Link href="/workspace" className="welcome-cta-secondary">
+              <NavLink href="/workspace" className="welcome-cta-secondary">
                 See a sample workspace
-              </Link>
+              </NavLink>
             </div>
 
             <div className="welcome-hero-pillars">
@@ -178,9 +178,9 @@ function WelcomeInner(): React.JSX.Element {
             </div>
 
             <div className="welcome-cta-row">
-              <Link href="/workspace" className="welcome-cta-secondary">
+              <NavLink href="/workspace" className="welcome-cta-secondary">
                 I'll set this up later
-              </Link>
+              </NavLink>
               <button
                 type="button"
                 className="welcome-cta-primary"

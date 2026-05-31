@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import NavLink from '../NavLink';
 import { useEffect, useState } from 'react';
 import { Check, Mic, Search, Users, Inbox, Globe, Repeat } from 'lucide-react';
 
@@ -66,7 +66,7 @@ export function WorkspaceSidebar(): React.JSX.Element {
   return (
     <aside className="workspace-sidebar flex w-[268px] shrink-0 flex-col">
       {/* PersonaOn wordmark · brand mark — Instrument Serif + signal-blue pulse dot */}
-      <Link
+      <NavLink
         href="/workspace"
         aria-label="PersonaOn — home"
         style={{
@@ -97,9 +97,9 @@ export function WorkspaceSidebar(): React.JSX.Element {
             boxShadow: '0 0 0 4px rgba(0, 102, 204, 0.18)',
           }}
         />
-      </Link>
+      </NavLink>
 
-      <Link
+      <NavLink
         href={`${pathname}?modal=record`}
         scroll={false}
         className="workspace-new-action"
@@ -107,9 +107,9 @@ export function WorkspaceSidebar(): React.JSX.Element {
       >
         <Mic className="h-4 w-4" />
         Record a meeting
-      </Link>
+      </NavLink>
 
-      <Link
+      <NavLink
         href={`${pathname}?cmd=open`}
         scroll={false}
         className="workspace-cmd-hint"
@@ -118,31 +118,31 @@ export function WorkspaceSidebar(): React.JSX.Element {
         <Search className="h-3.5 w-3.5" />
         <span className="label">Search workspace…</span>
         <span className="workspace-cmd-kbd">⌘K</span>
-      </Link>
+      </NavLink>
 
       <div className="px-2 pb-1">
-        <Link href="/workspace" onClick={closeMobile} className={`workspace-sidebar-item ${isHome ? 'is-active' : ''}`}>
+        <NavLink href="/workspace" onClick={closeMobile} className={`workspace-sidebar-item ${isHome ? 'is-active' : ''}`}>
           <Search className="h-4 w-4 opacity-70" />
           <span className="item-title">Today</span>
-        </Link>
-        <Link href="/workspace/people" onClick={closeMobile} className={`workspace-sidebar-item ${isPeople ? 'is-active' : ''}`}>
+        </NavLink>
+        <NavLink href="/workspace/people" onClick={closeMobile} className={`workspace-sidebar-item ${isPeople ? 'is-active' : ''}`}>
           <Users className="h-4 w-4 opacity-70" />
           <span className="item-title">People</span>
-        </Link>
-        <Link href="/workspace/visitors" onClick={closeMobile} className={`workspace-sidebar-item ${isVisitors ? 'is-active' : ''}`}>
+        </NavLink>
+        <NavLink href="/workspace/visitors" onClick={closeMobile} className={`workspace-sidebar-item ${isVisitors ? 'is-active' : ''}`}>
           <Globe className="h-4 w-4 opacity-70" />
           <span className="item-title">Visitors</span>
           <span className="item-meta">{visitorCount}</span>
-        </Link>
-        <Link href="/workspace/review" onClick={closeMobile} className={`workspace-sidebar-item ${isReview ? 'is-active' : ''}`}>
+        </NavLink>
+        <NavLink href="/workspace/review" onClick={closeMobile} className={`workspace-sidebar-item ${isReview ? 'is-active' : ''}`}>
           <Inbox className="h-4 w-4 opacity-70" />
           <span className="item-title">Review</span>
           <span className="item-meta">3</span>
-        </Link>
-        <Link href="/workspace/routines" onClick={closeMobile} className={`workspace-sidebar-item ${isRoutines ? 'is-active' : ''}`}>
+        </NavLink>
+        <NavLink href="/workspace/routines" onClick={closeMobile} className={`workspace-sidebar-item ${isRoutines ? 'is-active' : ''}`}>
           <Repeat className="h-4 w-4 opacity-70" />
           <span className="item-title">Routines</span>
-        </Link>
+        </NavLink>
       </div>
 
       <div className="flex-1 overflow-y-auto">
@@ -153,7 +153,7 @@ export function WorkspaceSidebar(): React.JSX.Element {
               const active = pathname === `/workspace/meeting/${meeting.id}`;
               const isLive = meeting.status === 'recording';
               return (
-                <Link
+                <NavLink
                   key={meeting.id}
                   href={`/workspace/meeting/${meeting.id}`}
                   className={`workspace-sidebar-item ${active ? 'is-active' : ''}`}
@@ -163,7 +163,7 @@ export function WorkspaceSidebar(): React.JSX.Element {
                     {meeting.title}
                   </span>
                   <span className="item-meta">{isLive ? 'live' : formatMeetingTime(meeting.start)}</span>
-                </Link>
+                </NavLink>
               );
             })}
           </div>
@@ -213,11 +213,11 @@ export function WorkspaceSidebar(): React.JSX.Element {
         );
       })()}
 
-      <Link href={`${pathname}?drawer=persona`} className="workspace-persona-chip" scroll={false}>
+      <NavLink href={`${pathname}?drawer=persona`} className="workspace-persona-chip" scroll={false}>
         <div className="avatar">{MOCK_PERSONA.initial}</div>
         <div className="name">{MOCK_PERSONA.displayName}</div>
         <span className="ready-dot" aria-label={MOCK_PERSONA.statusLabel} />
-      </Link>
+      </NavLink>
     </aside>
   );
 }

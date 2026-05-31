@@ -32,7 +32,7 @@ import {
   type RoutineCadence,
   type VisitorCannedAnswer,
 } from './mockData';
-import Link from 'next/link';
+import NavLink from '../NavLink';
 
 function useOverlayParam(key: string): { value: string | null; set: (v: string | null) => void } {
   const router = useRouter();
@@ -96,10 +96,10 @@ function PersonaDrawer({ onClose }: { onClose: () => void }): React.JSX.Element 
               </button>
             </div>
             <div className="workspace-quiet-row">
-              <a href="?view=visitor" className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
+              <NavLink href="?view=visitor" className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
                 <Eye className="h-3 w-3" />
                 View as visitor
-              </a>
+              </NavLink>
               <button className="workspace-quiet-btn">QR / Print</button>
             </div>
 
@@ -193,9 +193,9 @@ function PersonaDrawer({ onClose }: { onClose: () => void }): React.JSX.Element 
                       <li key={`${topic}-${i}`}>
                         <span className="fact-text">{f.fact}</span>
                         {f.meetingId ? (
-                          <Link href={`/workspace/meeting/${f.meetingId}`} className="fact-source">
+                          <NavLink href={`/workspace/meeting/${f.meetingId}`} className="fact-source">
                             {f.meetingTitle} · {f.when}
-                          </Link>
+                          </NavLink>
                         ) : (
                           <span className="fact-source seed">{f.meetingTitle} · {f.when}</span>
                         )}
@@ -207,9 +207,9 @@ function PersonaDrawer({ onClose }: { onClose: () => void }): React.JSX.Element 
             </div>
             <div className="workspace-quiet-row">
               <button className="workspace-quiet-btn">Add knowledge</button>
-              <Link href="/workspace/review" className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
+              <NavLink href="/workspace/review" className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
                 Open Review
-              </Link>
+              </NavLink>
             </div>
 
             <style jsx>{`
@@ -656,7 +656,7 @@ function SettingsNotifications() {
         >
           <strong style={{ color: 'var(--w-ink)' }}>Looking for the daily digest?</strong> Recurring
           summaries (morning brief, end-of-day wrap-up, weekly reflection) live in{' '}
-          <Link href="/workspace/routines" style={{ color: 'var(--w-accent)' }}>Routines</Link> so you
+          <NavLink href="/workspace/routines" style={{ color: 'var(--w-accent)' }}>Routines</NavLink> so you
           can pick the cadence and what they cover.
         </div>
       </div>
@@ -978,14 +978,14 @@ function RoutineModal({ templateId, onClose }: { templateId: string; onClose: ()
               {cadence === 'daily' ? `Daily · ${time}` : cadence === 'weekly' ? `Weekly · ${time}` : `Monthly · ${time}`}
             </div>
           </div>
-          <Link
+          <NavLink
             href="/workspace/routines"
             onClick={onClose}
             className="workspace-quiet-btn"
             style={{ textDecoration: 'none' }}
           >
             Change template
-          </Link>
+          </NavLink>
         </div>
 
         <div className="workspace-routine-body">

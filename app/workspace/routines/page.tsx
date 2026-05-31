@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import NavLink from '../../NavLink';
 import { Plus } from 'lucide-react';
 
 import { CADENCE_LABEL, ROUTINE_TEMPLATES } from '../mockData';
@@ -40,7 +40,7 @@ export default function RoutinesPage(): React.JSX.Element {
                 reflections — delivered on a schedule, sourced from your meetings.
               </p>
             </div>
-            <Link
+            <NavLink
               href={`${pathname}?modal=routine`}
               scroll={false}
               className="welcome-cta-primary"
@@ -48,7 +48,7 @@ export default function RoutinesPage(): React.JSX.Element {
             >
               <Plus className="h-3.5 w-3.5" />
               New routine
-            </Link>
+            </NavLink>
           </header>
 
           {active.length > 0 && (
@@ -56,7 +56,7 @@ export default function RoutinesPage(): React.JSX.Element {
               <p className="workspace-routines-section-label">Active · {active.length}</p>
               <div className="workspace-routines-grid">
                 {active.map((r) => (
-                  <Link
+                  <NavLink
                     key={r.id}
                     href={`${pathname}?modal=routine&template=${r.id}`}
                     scroll={false}
@@ -69,7 +69,7 @@ export default function RoutinesPage(): React.JSX.Element {
                     <h3 className="workspace-routine-card-title">{r.name}</h3>
                     <p className="workspace-routine-card-desc">{r.description}</p>
                     <div className="workspace-routine-card-schedule">{schedule(r)}</div>
-                  </Link>
+                  </NavLink>
                 ))}
               </div>
             </section>
@@ -78,7 +78,7 @@ export default function RoutinesPage(): React.JSX.Element {
           <section className="workspace-routines-section">
             <p className="workspace-routines-section-label">Templates · ready to enable</p>
             <div className="workspace-routines-grid">
-              <Link
+              <NavLink
                 href={`${pathname}?modal=routine&template=custom`}
                 scroll={false}
                 className="workspace-routine-card is-blank"
@@ -88,9 +88,9 @@ export default function RoutinesPage(): React.JSX.Element {
                   Create custom routine
                 </p>
                 <p style={{ margin: '4px 0 0', fontSize: 12.5 }}>Build your own from scratch</p>
-              </Link>
+              </NavLink>
               {templates.map((r) => (
-                <Link
+                <NavLink
                   key={r.id}
                   href={`${pathname}?modal=routine&template=${r.id}`}
                   scroll={false}
@@ -100,7 +100,7 @@ export default function RoutinesPage(): React.JSX.Element {
                   <h3 className="workspace-routine-card-title">{r.name}</h3>
                   <p className="workspace-routine-card-desc">{r.description}</p>
                   <div className="workspace-routine-card-schedule">{schedule(r)}</div>
-                </Link>
+                </NavLink>
               ))}
             </div>
           </section>

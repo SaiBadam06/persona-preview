@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import NavLink from '../NavLink';
 import { Calendar, Clock3, Mic, Sparkles, Upload } from 'lucide-react';
 import { Suspense } from 'react';
 
@@ -37,13 +37,13 @@ function HomeInner(): React.JSX.Element {
                 <p className="workspace-meta" style={{ margin: 0 }}>
                   {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
                 </p>
-                <Link
+                <NavLink
                   href="/workspace"
                   className="workspace-meta"
                   style={{ textDecoration: 'none', color: 'var(--w-ink-3)' }}
                 >
                   Switch to seeded workspace ↗
-                </Link>
+                </NavLink>
               </div>
               <h1 className="workspace-display-xl">
                 Welcome to PersonaOn, Avery.
@@ -62,7 +62,7 @@ function HomeInner(): React.JSX.Element {
                 marginBottom: 32,
               }}
             >
-              <Link
+              <NavLink
                 href="?modal=record"
                 scroll={false}
                 style={{
@@ -80,9 +80,9 @@ function HomeInner(): React.JSX.Element {
                 <p className="workspace-meta" style={{ margin: 0 }}>
                   Send a bot to a Zoom link, record this tab, or upload audio. 30 seconds.
                 </p>
-              </Link>
+              </NavLink>
 
-              <Link
+              <NavLink
                 href="?settings=integrations"
                 scroll={false}
                 style={{
@@ -100,9 +100,9 @@ function HomeInner(): React.JSX.Element {
                 <p className="workspace-meta" style={{ margin: 0 }}>
                   Google or Microsoft. We'll suggest which meetings to record going forward.
                 </p>
-              </Link>
+              </NavLink>
 
-              <Link
+              <NavLink
                 href="?modal=record"
                 scroll={false}
                 style={{
@@ -120,7 +120,7 @@ function HomeInner(): React.JSX.Element {
                 <p className="workspace-meta" style={{ margin: 0 }}>
                   Audio or video file. We transcribe and build a recap so your archive isn't empty.
                 </p>
-              </Link>
+              </NavLink>
             </div>
 
             <section
@@ -141,12 +141,12 @@ function HomeInner(): React.JSX.Element {
                   approve a fact from a real meeting.
                 </p>
                 <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-                  <Link href="?drawer=persona" scroll={false} className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
+                  <NavLink href="?drawer=persona" scroll={false} className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
                     Open persona
-                  </Link>
-                  <Link href="?view=visitor" scroll={false} className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
+                  </NavLink>
+                  <NavLink href="?view=visitor" scroll={false} className="workspace-quiet-btn" style={{ textDecoration: 'none' }}>
                     View as visitor
-                  </Link>
+                  </NavLink>
                 </div>
               </div>
             </section>
@@ -169,12 +169,12 @@ function HomeInner(): React.JSX.Element {
                 {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
               </p>
               <span className="workspace-meta" style={{ display: 'flex', gap: 16 }}>
-                <Link href="/workspace?seed=empty" className="workspace-meta" style={{ textDecoration: 'none', color: 'var(--w-ink-3)' }}>
+                <NavLink href="/workspace?seed=empty" className="workspace-meta" style={{ textDecoration: 'none', color: 'var(--w-ink-3)' }}>
                   Preview empty state ↗
-                </Link>
-                <Link href="/welcome" className="workspace-meta" style={{ textDecoration: 'none', color: 'var(--w-ink-3)' }}>
+                </NavLink>
+                <NavLink href="/welcome" className="workspace-meta" style={{ textDecoration: 'none', color: 'var(--w-ink-3)' }}>
                   See onboarding ↗
-                </Link>
+                </NavLink>
               </span>
             </div>
             <h1 className="workspace-display-xl">
@@ -200,20 +200,20 @@ function HomeInner(): React.JSX.Element {
               }}
             >
               <span style={{ color: 'var(--w-ink-3)', fontWeight: 500 }}>Pending:</span>
-              <Link href="/workspace/review" style={{ color: 'var(--w-ink)', textDecoration: 'none' }}>
+              <NavLink href="/workspace/review" style={{ color: 'var(--w-ink)', textDecoration: 'none' }}>
                 <strong style={{ fontWeight: 500 }}>6</strong>{' '}
                 <span style={{ color: 'var(--w-ink-3)' }}>to review</span>
-              </Link>
+              </NavLink>
               <span style={{ color: 'var(--w-ink-4)' }}>·</span>
-              <Link href="/workspace/people/jordan-reyes" style={{ color: 'var(--w-ink)', textDecoration: 'none' }}>
+              <NavLink href="/workspace/people/jordan-reyes" style={{ color: 'var(--w-ink)', textDecoration: 'none' }}>
                 <strong style={{ fontWeight: 500 }}>3</strong>{' '}
                 <span style={{ color: 'var(--w-ink-3)' }}>follow-ups owed</span>
-              </Link>
+              </NavLink>
               <span style={{ color: 'var(--w-ink-4)' }}>·</span>
-              <Link href="/workspace/visitors" style={{ color: 'var(--w-accent)', textDecoration: 'none' }}>
+              <NavLink href="/workspace/visitors" style={{ color: 'var(--w-accent)', textDecoration: 'none' }}>
                 <strong style={{ fontWeight: 500 }}>1</strong>{' '}
                 <span>visitor question unanswered</span>
-              </Link>
+              </NavLink>
             </div>
           </header>
 
@@ -225,7 +225,7 @@ function HomeInner(): React.JSX.Element {
             {today ? (
               <div>
                 {today.meetings.map((meeting) => (
-                  <Link key={meeting.id} href={`/workspace/meeting/${meeting.id}`} className="workspace-row">
+                  <NavLink key={meeting.id} href={`/workspace/meeting/${meeting.id}`} className="workspace-row">
                     <div className="row-time">{formatMeetingTime(meeting.start)}</div>
                     <div className="row-body">
                       <p className="row-title">{meeting.title}</p>
@@ -236,7 +236,7 @@ function HomeInner(): React.JSX.Element {
                     <div className={`row-status ${meeting.status === 'recording' ? 'is-live' : ''}`}>
                       {meeting.status === 'recording' ? 'live' : meeting.status === 'completed' ? 'done' : 'soon'}
                     </div>
-                  </Link>
+                  </NavLink>
                 ))}
               </div>
             ) : (
@@ -262,7 +262,7 @@ function HomeInner(): React.JSX.Element {
               </div>
               <div>
                 {group.meetings.map((meeting) => (
-                  <Link key={meeting.id} href={`/workspace/meeting/${meeting.id}`} className="workspace-row">
+                  <NavLink key={meeting.id} href={`/workspace/meeting/${meeting.id}`} className="workspace-row">
                     <div className="row-time">{formatRelativeDate(meeting.start)}</div>
                     <div className="row-body">
                       <p className="row-title">{meeting.title}</p>
@@ -273,7 +273,7 @@ function HomeInner(): React.JSX.Element {
                     <div className="row-status">
                       {meeting.hasRecap ? 'recap' : ''}
                     </div>
-                  </Link>
+                  </NavLink>
                 ))}
               </div>
             </section>

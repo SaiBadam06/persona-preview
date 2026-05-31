@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useMemo, useState } from 'react';
+import NavLink from '../../NavLink';
 import { AlertTriangle, ArrowRight, Check, Lock, MessageSquare, Sparkles, X } from 'lucide-react';
 
 import { MOCK_REVIEW_CANDIDATES, type ReviewCandidate } from '../mockData';
@@ -185,12 +185,12 @@ function ReviewCard({
       {!compact && (
         <p className="workspace-meta workspace-review-source">
           {item.meetingId ? (
-            <Link
+            <NavLink
               href={`/workspace/meeting/${item.meetingId}`}
               style={{ color: 'var(--w-ink-2)', textDecoration: 'none' }}
             >
               {item.meetingTitle}
-            </Link>
+            </NavLink>
           ) : (
             item.meetingTitle
           )}
