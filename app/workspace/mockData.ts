@@ -242,10 +242,11 @@ export const MOCK_PERSONA = {
   bio: 'Building tools that turn meetings into memory you can ask back. Previously product at two seed-stage SaaS companies.',
   publicReadiness: 78,
   pinnedQuestions: [
-    'What is PersonaOn?',
+    'Who is Avery Stone?',
+    'Why did you start PersonaOn?',
+    "What's your background before PersonaOn?",
     'How do you think about meeting privacy?',
-    'What kinds of customers do you sell to?',
-    'Are you hiring?',
+    'How can I work with you?',
   ],
   allowedTopics: [
     { label: 'PersonaOn product', sources: 14 },
@@ -787,31 +788,59 @@ export type VisitorCannedAnswer = {
 };
 
 export const MOCK_VISITOR_ANSWERS: Record<string, VisitorCannedAnswer> = {
-  'What is PersonaOn?': {
-    question: 'What is PersonaOn?',
+  'Who is Avery Stone?': {
+    question: 'Who is Avery Stone?',
     answer:
-      "PersonaOn turns your meetings into memory you can ask back — privately for you, and publicly through a persona that visitors can chat with. The persona only answers from facts you've explicitly approved, and every answer is traceable to the meeting it came from.",
+      "I'm Avery Stone, founder of PersonaOn. I'm building meeting intelligence with a public surface — tools that turn your meetings into memory you can ask back, privately for you and publicly through a persona visitors can chat with. Before this I spent years in product at two seed-stage SaaS companies, which is where I got obsessed with how much context teams lose the moment a meeting ends.",
     sources: [
       {
-        meetingId: 'm-customer-feedback',
-        meetingTitle: 'Customer feedback · Persona memory',
-        date: '9 days ago',
+        meetingId: '',
+        meetingTitle: 'Persona bio (manually written)',
+        date: 'persona seed',
         excerpt:
-          'Three customers in a row asked for "ask my persona about X" inside the dashboard, not just public.',
+          'Founded by Avery Stone after two seed-stage SaaS startups.',
       },
       {
         meetingId: '',
         meetingTitle: 'Persona bio (manually written)',
         date: 'persona seed',
         excerpt:
-          'PersonaOn is meeting intelligence with a public memory surface.',
+          'Building tools that turn meetings into memory you can ask back.',
+      },
+    ],
+  },
+  'Why did you start PersonaOn?': {
+    question: 'Why did you start PersonaOn?',
+    answer:
+      "I kept losing context between meetings and wanted a memory layer I could actually ask questions of — not just another folder of transcripts. When I described it to founder friends, they all had the same problem, so I started building PersonaOn.",
+    sources: [
+      {
+        meetingId: '',
+        meetingTitle: 'Founder note (manually written)',
+        date: 'persona seed',
+        excerpt:
+          'I kept losing context between meetings and wanted a memory layer I could ask back. Friends had the same problem.',
+      },
+    ],
+  },
+  "What's your background before PersonaOn?": {
+    question: "What's your background before PersonaOn?",
+    answer:
+      "Product, mostly. I spent years as a product person at two seed-stage SaaS startups before founding PersonaOn — shipping 0→1 features, talking to customers constantly, and watching good decisions get lost the moment a meeting ended. That last part is basically why PersonaOn exists.",
+    sources: [
+      {
+        meetingId: '',
+        meetingTitle: 'Persona bio (manually written)',
+        date: 'persona seed',
+        excerpt:
+          'Previously product at two seed-stage SaaS companies.',
       },
     ],
   },
   'How do you think about meeting privacy?': {
     question: 'How do you think about meeting privacy?',
     answer:
-      "Privacy is the product, not a footnote. Meetings are private by default. Memories are auto-extracted but never auto-published — every fact passes through Review before joining the persona's allowed-to-say set. Anything mentioning a third party is flagged and held back unless explicitly approved.",
+      "Privacy is the product, not a footnote. My meetings are private by default. Memories are auto-extracted but never auto-published — every fact passes through Review before it joins the set my persona is allowed to say. Anything mentioning a third party is flagged and held back unless I explicitly approve it.",
     sources: [
       {
         meetingId: 'm-customer-feedback',
@@ -822,37 +851,10 @@ export const MOCK_VISITOR_ANSWERS: Record<string, VisitorCannedAnswer> = {
       },
     ],
   },
-  'What kinds of customers do you sell to?': {
-    question: 'What kinds of customers do you sell to?',
+  'How can I work with you?': {
+    question: 'How can I work with you?',
     answer:
-      "We sell to founders, consultants, and operators who run many meetings and want their work to compound. Recent customer: Acme committed to a 12-seat trial starting June 1 at $39/seat with a 12-month lock-in.",
-    sources: [
-      {
-        meetingId: 'm-sales-acme',
-        meetingTitle: 'Sales sync · Acme expansion',
-        date: 'yesterday',
-        excerpt: 'Acme committed to a 12-seat trial starting June 1.',
-      },
-      {
-        meetingId: 'm-sales-acme',
-        meetingTitle: 'Sales sync · Acme expansion',
-        date: 'yesterday',
-        excerpt: 'Pricing landed at $39/seat, locked-in for 12 months.',
-      },
-    ],
-  },
-  'Are you hiring?': {
-    question: 'Are you hiring?',
-    answer:
-      "Yes — we're hiring a senior backend engineer with a preference for distributed-systems experience. Reach out via the booking link below if interested.",
-    sources: [
-      {
-        meetingId: 'm-1on1-marcus',
-        meetingTitle: '1:1 · Marcus',
-        date: '4 days ago',
-        excerpt:
-          'Discussed promotion path; agreed on three concrete milestones. Open headcount for a senior eng.',
-      },
-    ],
+      "The fastest way is to book a quick call through my public link — personaon.com/p/avery/book. Tell me a bit about what you're working on and I'll come prepared. If your question is about PersonaOn itself, you can also just keep chatting here and my persona will answer from what I've approved.",
+    sources: [],
   },
 };
